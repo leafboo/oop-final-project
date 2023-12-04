@@ -13,6 +13,7 @@ public class MainProgram {
    public static void main(String a[]) {
         // data
         
+        /*
         adminDatabase[0] = new Admin("1601", "John", "0953");
         adminDatabase[1] = new Admin("16012", "Han", "093");
         adminDatabase[2] = new Admin("160", "Dan", "292");
@@ -22,12 +23,25 @@ public class MainProgram {
         studentDatabase[0] = new Student("101", "Dal", "09523");
         studentDatabase[1] = new Student("160", "Von", "0393");
         studentDatabase[2] = new Student("16032", "Daisy", "2952");
-
+        */
         
         // prompt user to pick
-        System.out.print("Choose a user: (a)admin (s)student");
-        char user = sc.next().charAt(0);
-        if (user == 'a' || user == 'A') {
+        System.out.print("Choose a user: admin student");
+        String user = sc.next().toLowerCase();
+
+        //if there is no user
+        if (!thereAreUsers()) {
+            addUser(transaction);
+        } else {
+            if (user == "admin") {
+                adminWindow();
+            } else if (user == "student") {
+                studentWindow();
+            }
+        }
+
+
+        if (user == "admin") {
             adminWindow();
 
         } else if (user == 's' || user == 'S'){
@@ -89,7 +103,7 @@ public class MainProgram {
                 if (transaction == "d") {
                     deleteBook();
                 } else if (transaction == "au") {
-                    addUser();
+                    addUser(user);
                 } else if (transaction == "su") {
                     searchUser();
                 }
@@ -115,8 +129,15 @@ public class MainProgram {
     public static void deleteBook() {
         
     }
-    public static void addUser() {
-        
+    public static void addUser(String user) {
+        System.out.println("Enter the user id: ");
+        System.out.println("Enter the username: ");
+        System.out.println("Enter the contact number");
+        if (user == "admin") {
+
+        } else if (user == "student") {
+
+        }
     }
     public static void searchUser() {
 
@@ -133,4 +154,11 @@ public class MainProgram {
 
     }
 
+
+    
+    public static boolean thereAreUsers() {
+        return adminDatabase.length > 0 || studentDatabase.length > 0 ? true : false;
+    }
+
 }
+
