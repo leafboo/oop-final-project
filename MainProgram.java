@@ -4,6 +4,9 @@ public class MainProgram {
     static Scanner sc = new Scanner(System.in);
     static String transaction;
     static char retry;
+    static char promptToRetry;
+    static int adminCounter = 0;
+    static int studentCounter = 0;
 
     static Admin[] adminDatabase = new Admin[3];
     static Student[] studentDatabase = new Student[3];
@@ -15,47 +18,53 @@ public class MainProgram {
         
         /*
         adminDatabase[0] = new Admin("1601", "John", "0953");
-        adminDatabase[1] = new Admin("16012", "Han", "093");
-        adminDatabase[2] = new Admin("160", "Dan", "292");
 
-
-        
         studentDatabase[0] = new Student("101", "Dal", "09523");
-        studentDatabase[1] = new Student("160", "Von", "0393");
-        studentDatabase[2] = new Student("16032", "Daisy", "2952");
         */
-        
-        // prompt user to pick
-        System.out.print("Choose a user: admin student");
-        String user = sc.next().toLowerCase();
+        do {
+            // prompt user to pick
+            System.out.print("Choose a user: (admin) (student)  ");
+            String user = sc.next().toLowerCase();
 
-        //if there is no user
-        if (!thereAreUsers()) {
-            addUser(transaction);
-        } else {
-            if (user == "admin") {
-                adminWindow();
-            } else if (user == "student") {
-                studentWindow();
+            if (!user.equals("admin") && !user.equals("student")) {
+                System.out.println("Invalid input. Try again.");
+                break;
             }
-        }
+
+            //if there is no user in admin or student
+            if (!thereAreUsers(user)) {
+                System.out.println("No users found. Initialize user");
+                addUser(user);
+            } else {
 
 
-        if (user == "admin") {
-            adminWindow();
-
-        } else if (user == 's' || user == 'S'){
-            studentWindow();
-        } else {
-            System.out.println("Invalid, try again.");
-        }
-        // ask user if they want to change user. If yes then repeat.
+                if (user.equals("admin")) {
+                    adminWindow();
+                } else if (user.equals(user)) {
+                    studentWindow();
+                } 
+            }
+            System.out.println("(y) go back (n) exit program  ");
+            promptToRetry = sc.next().toLowerCase().charAt(0);
+        } while (promptToRetry == 'y');
+        
     } 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     public static void adminWindow() {
-        while (retry == 'y' || retry == 'Y') {
+        do {
             String user = "admin";
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
@@ -69,15 +78,16 @@ public class MainProgram {
             System.out.print("Enter your transaction: ");
             transaction = sc.next();
             pickTransaction(transaction, user);
-            System.out.print("Do you want to pick another transaction? y/n");
-            retry = sc.next().charAt(0);
-        }
+            System.out.print("Do you want to pick another transaction? y/n ");
+            System.out.println();
+            retry = sc.next().toLowerCase().charAt(0);
+        } while (retry == 'y');
        
 
     }
 
     public static void studentWindow() {
-        while (retry == 'y' || retry == 'Y') {
+        do {
             String user = "student";
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
@@ -89,12 +99,12 @@ public class MainProgram {
             System.out.println("Enter your transaction: ");
             transaction = sc.next();
             pickTransaction(transaction, user);
-            System.out.print("Do you want to pick another transaction? y/n");
-            retry = sc.next().charAt(0);
-        }
+            System.out.print("Do you want to pick another transaction? y/n ");
+            System.out.println();
+            retry = sc.next().toLowerCase().charAt(0);
+        } while (retry == 'y');
 
     }
-
 
     public static void pickTransaction(String transaction, String user) {
         if (transaction.length() != 0) {
@@ -130,13 +140,19 @@ public class MainProgram {
         
     }
     public static void addUser(String user) {
-        System.out.println("Enter the user id: ");
-        System.out.println("Enter the username: ");
-        System.out.println("Enter the contact number");
-        if (user == "admin") {
-
-        } else if (user == "student") {
-
+        System.out.print("Enter the user id: ");
+        String userId = sc.next();
+        System.out.print("Enter the username: ");
+        String name = sc.next();
+        System.out.print("Enter the contact number: ");
+        String contactNumber = sc.next();
+        if (user.equals("admin") && adminCounter < 3) {
+            adminDatabase[adminCounter] = new Admin(userId, name, contactNumber); // iterate throught the array
+            adminCounter++;
+            
+        } else if (user.equals(user) && studentCounter < 3) {
+            adminDatabase[adminCounter] = new Admin(userId, name, contactNumber);
+            studentCounter++;
         }
     }
     public static void searchUser() {
@@ -153,11 +169,22 @@ public class MainProgram {
     public static void searchMediaItem() {
 
     }
-
-
     
-    public static boolean thereAreUsers() {
-        return adminDatabase.length > 0 || studentDatabase.length > 0 ? true : false;
+    public static boolean thereAreUsers(String user) {
+        if (user.equals("admin")) {
+            for (Admin admin : adminDatabase) { // foreach loop
+                if (admin != null) {
+                    return true;
+                }
+            }
+        } else if (user.equals("student")) {
+            for (Student student : studentDatabase) {
+                if (student != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
