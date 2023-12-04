@@ -20,6 +20,7 @@ public class MainProgram {
 
         Book[] bookDatabase = new Book[3];
         
+        
         Media[] mediaDatabase = new Media[3];
 
         // prompt user to pick
@@ -29,7 +30,7 @@ public class MainProgram {
             adminWindow();
 
         } else if (user == 's' || user == 'S'){
-            userWindow();
+            studentWindow();
         } else {
             System.out.println("Invalid, try again.");
         }
@@ -40,18 +41,19 @@ public class MainProgram {
 
     public static void adminWindow() {
         while (retry == 'y' || retry == 'Y') {
+            String user = "admin";
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
             System.out.println("          Welcome admin         ");
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
             System.out.println("(d)delete book    (au)add user  ");
-            System.out.println("(s)search book    (sm)search media item");
+            System.out.println("(sb)search book    (sm)search media item");
             System.out.println("         (su)search user        ");
             System.out.println("--------------------------------");
             System.out.print("Enter your transaction: ");
             transaction = sc.next();
-            pickTransaction(transaction);
+            pickTransaction(transaction, user);
             System.out.print("Do you want to pick another transaction? y/n");
             retry = sc.next().charAt(0);
         }
@@ -59,18 +61,19 @@ public class MainProgram {
 
     }
 
-    public static void userWindow() {
+    public static void studentWindow() {
         while (retry == 'y' || retry == 'Y') {
-             System.out.println("--------------------------------");
+            String user = "student";
+            System.out.println("--------------------------------");
             System.out.println("--------------------------------");
             System.out.println("         Welcome student        ");
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
-            System.out.println("(s)search book    (sm)search media item");
+            System.out.println("(sb)search book    (sm)search media item");
             System.out.println("         (l)loan a book         ");
             System.out.println("Enter your transaction: ");
             transaction = sc.next();
-            pickTransaction(transaction);
+            pickTransaction(transaction, user);
             System.out.print("Do you want to pick another transaction? y/n");
             retry = sc.next().charAt(0);
         }
@@ -78,29 +81,31 @@ public class MainProgram {
     }
 
 
-    public static void pickTransaction(String transaction) {
-        switch (transaction) {
-            case "d":
-                deleteBook();
-                break;
-            case "au":
-                addUser();
-                break;
-            case "s":
+    public static void pickTransaction(String transaction, String user) {
+        if (transaction.length() != 0) {
+            if (user == "admin") { // admin's access
+
+                if (transaction == "d") {
+                    deleteBook();
+                } else if (transaction == "au") {
+                    addUser();
+                } else if (transaction == "su") {
+                    searchUser();
+                }
+
+            } else { // student's access
+
+                if (transaction == "l") {
+                    loanABook();
+                }
+
+            }
+            // both admin and user has access
+            if (transaction == "sb") {
                 searchBook();
-                break;
-            case "sm":
+            } else if (transaction == "sm") {
                 searchMediaItem();
-                break;
-            case "su":
-                searchUser();
-                break;
-            case "l":
-                loanABook();
-                break;
-        
-            default:
-                break;
+            }
         }
     }
 
@@ -110,7 +115,7 @@ public class MainProgram {
         
     }
     public static void addUser() {
-
+        
     }
     public static void searchUser() {
 
