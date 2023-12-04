@@ -5,24 +5,25 @@ public class MainProgram {
     static String transaction;
     static char retry;
 
+    static Admin[] adminDatabase = new Admin[3];
+    static Student[] studentDatabase = new Student[3];
+    static Book[] bookDatabase = new Book[3];
+    static Media[] mediaDatabase = new Media[3];
+
    public static void main(String a[]) {
         // data
-        Admin[] adminDatabase = new Admin[3];
+        
         adminDatabase[0] = new Admin("1601", "John", "0953");
         adminDatabase[1] = new Admin("16012", "Han", "093");
         adminDatabase[2] = new Admin("160", "Dan", "292");
 
 
-        Student[] studentDatabase = new Student[3];
+        
         studentDatabase[0] = new Student("101", "Dal", "09523");
         studentDatabase[1] = new Student("160", "Von", "0393");
         studentDatabase[2] = new Student("16032", "Daisy", "2952");
 
-        Book[] bookDatabase = new Book[3];
         
-        
-        Media[] mediaDatabase = new Media[3];
-
         // prompt user to pick
         System.out.print("Choose a user: (a)admin (s)student");
         char user = sc.next().charAt(0);
