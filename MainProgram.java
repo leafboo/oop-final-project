@@ -22,7 +22,7 @@ public class MainProgram {
         /*
         adminDatabase[0] = new Admin("1601", "John", "0953");
 
-        studentDatabase[0] = new Student("101", "Dal", "09523");
+        studentDatabase[0] = new Student("101", "Dal", "09523")
         */
         do {
             // prompt user to pick
@@ -69,7 +69,10 @@ public class MainProgram {
 
     public static void adminWindow() {
         do {
+
+            // note: if the user picks add user and the adminDatabase is not 0, 
             String user = "admin";
+            System.out.println();
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
             System.out.println("          Welcome admin         ");
@@ -94,6 +97,7 @@ public class MainProgram {
     public static void studentWindow() {
         do {
             String user = "student";
+            System.out.println();
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
             System.out.println("         Welcome student        ");
@@ -143,9 +147,6 @@ public class MainProgram {
 
     
     // admin abilities
-    public static void deleteBook() {
-        
-    }
     public static void addUser(String user) {
         System.out.print("Enter the user id: ");
         String userId = sc.next();
@@ -155,10 +156,37 @@ public class MainProgram {
         String contactNumber = sc.next();
         if (user.equals("admin") && adminCounter < 3) {
             adminDatabase[adminCounter] = new Admin(userId, name, contactNumber); // iterate throught the array
+            System.out.println();
+            System.out.println("--------------------------------------");
+            System.out.println("--------------------------------------");
+            System.out.println("          Added an admin user          ");
+            System.out.println("--------------------------------------");
+            System.out.println("--------------------------------------");
+            System.out.println("user id: " + adminDatabase[adminCounter].userId );
+            System.out.println("name: " + adminDatabase[adminCounter].name);
+            System.out.println("contact number: " + adminDatabase[adminCounter].contactNumber);
+            System.out.println("current admins: " + (adminCounter + 1) + " / 3");
+             System.out.println("--------------------------------------");
+            System.out.println("--------------------------------------");
+            System.out.println();
             adminCounter++;
             
+            
         } else if (user.equals(user) && studentCounter < 3) {
-            adminDatabase[adminCounter] = new Admin(userId, name, contactNumber);
+            studentDatabase[studentCounter] = new Student(userId, name, contactNumber);
+            System.out.println();
+            System.out.println("--------------------------------------");
+            System.out.println("--------------------------------------");
+            System.out.println("          Added a student user        ");
+            System.out.println("--------------------------------------");
+            System.out.println("--------------------------------------");
+            System.out.println("user id: " + studentDatabase[studentCounter].userId );
+            System.out.println("name: " + studentDatabase[studentCounter].name);
+            System.out.println("contact number: " + studentDatabase[studentCounter].contactNumber);
+            System.out.println("current users: " + (studentCounter + 1) + " / 3");
+             System.out.println("--------------------------------------");
+            System.out.println("--------------------------------------");
+            System.out.println();
             studentCounter++;
         }
     }
@@ -174,7 +202,6 @@ public class MainProgram {
 
         bookDatabase[bookCounter] = new Book(title, author, ISBN, availabilityStatus);
         bookCounter++;
-
     }
     public static void addMedia() {
         System.out.println("Input the media title: ");
@@ -185,6 +212,11 @@ public class MainProgram {
         mediaDatabase[mediaCounter] = new Media(mediaTitle, serialNumber);
         mediaCounter++;
     }
+
+    public static void deleteBook() {
+        
+    }
+
     public static void searchUser() {
 
     }
@@ -200,6 +232,9 @@ public class MainProgram {
 
     }
     
+
+
+
     public static boolean thereAreUsers(String user) {
         if (user.equals("admin")) {
             for (Admin admin : adminDatabase) { // foreach loop
