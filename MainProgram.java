@@ -5,8 +5,11 @@ public class MainProgram {
     static String transaction;
     static char retry;
     static char promptToRetry;
+
     static int adminCounter = 0;
     static int studentCounter = 0;
+    static int bookCounter = 0;
+    static int mediaCounter = 0;
 
     static Admin[] adminDatabase = new Admin[3];
     static Student[] studentDatabase = new Student[3];
@@ -37,10 +40,11 @@ public class MainProgram {
                 addUser(user);
             } else {
 
-
                 if (user.equals("admin")) {
+                    // search the name of the admin
                     adminWindow();
-                } else if (user.equals(user)) {
+                } else if (user.equals("student")) {
+                    // search the name of the student
                     studentWindow();
                 } 
             }
@@ -71,9 +75,10 @@ public class MainProgram {
             System.out.println("          Welcome admin         ");
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
-            System.out.println("(d)delete book    (au)add user  ");
-            System.out.println("(sb)search book    (sm)search media item");
-            System.out.println("         (su)search user        ");
+            System.out.println("(db)delete book    (du)delete user  ");
+            System.out.println("(sb)search book   (sm)search media item");
+            System.out.println("(su)search user   (au)add user  ");
+            System.out.println("(am)add media     (ab)add book  ");
             System.out.println("--------------------------------");
             System.out.print("Enter your transaction: ");
             transaction = sc.next();
@@ -95,7 +100,7 @@ public class MainProgram {
             System.out.println("--------------------------------");
             System.out.println("--------------------------------");
             System.out.println("(sb)search book    (sm)search media item");
-            System.out.println("         (l)loan a book         ");
+            System.out.println("         (lb)loan a book         ");
             System.out.println("Enter your transaction: ");
             transaction = sc.next();
             pickTransaction(transaction, user);
@@ -110,25 +115,27 @@ public class MainProgram {
         if (transaction.length() != 0) {
             if (user == "admin") { // admin's access
 
-                if (transaction == "d") {
+                if (transaction.equals("db")) {
                     deleteBook();
-                } else if (transaction == "au") {
+                } else if (transaction.equals("au")) {
                     addUser(user);
-                } else if (transaction == "su") {
+                } else if (transaction.equals("ab")) {
+                    addBook();
+                } else if (transaction.equals("am")) {
+                    addMedia();
+                } else if (transaction.equals("su")) {
                     searchUser();
                 }
 
             } else { // student's access
-
-                if (transaction == "l") {
+                if (transaction.equals("lb")) {
                     loanABook();
                 }
-
             }
             // both admin and user has access
-            if (transaction == "sb") {
+            if (transaction.equals("sb")) {
                 searchBook();
-            } else if (transaction == "sm") {
+            } else if (transaction.equals("sm")) {
                 searchMediaItem();
             }
         }
@@ -154,6 +161,23 @@ public class MainProgram {
             adminDatabase[adminCounter] = new Admin(userId, name, contactNumber);
             studentCounter++;
         }
+    }
+    public static void addBook() {
+        System.out.print("Enter the book title: ");
+        String title = sc.next();
+        System.out.println("Enter the book author: ");
+        String author = sc.next();
+        System.out.print("Enter the ISBN: ");
+        String ISBN = sc.next();
+        System.out.println("Is the book available? (true)yes (false)no ");
+        boolean availabilityStatus = sc.nextBoolean();
+
+        bookDatabase[bookCounter] = new Book(title, author, ISBN, availabilityStatus);
+        bookCounter++;
+
+    }
+    public static void addMedia() {
+
     }
     public static void searchUser() {
 
