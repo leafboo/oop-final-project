@@ -4,7 +4,7 @@ public class Book extends Item{
     // attributes
     String title;
     String author;
-    String ISBN;
+    String ISBN; // book's unique id
     boolean availabilityStatus;
 
     public Book(String title, String author, String ISBN, boolean availabilityStatus) {

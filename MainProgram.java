@@ -177,7 +177,13 @@ public class MainProgram {
 
     }
     public static void addMedia() {
+        System.out.println("Input the media title: ");
+        String mediaTitle = sc.next();
+        System.out.println("Inpput the serial number: ");
+        String serialNumber = sc.next();
 
+        mediaDatabase[mediaCounter] = new Media(mediaTitle, serialNumber);
+        mediaCounter++;
     }
     public static void searchUser() {
 
