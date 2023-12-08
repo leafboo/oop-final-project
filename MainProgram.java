@@ -217,8 +217,15 @@ public class MainProgram {
         
     }
 
-    public static void searchUser() {
-
+    public static String searchUser() {
+        System.out.print("Input the book title you want to find: ");
+        String title = sc.next();
+        for (int i = 0; i < bookCounter; i++) {
+            if (bookDatabase[i].equals(title)) {
+                return bookDatabase[i].title;
+            }    
+        }
+        return "User not found.";
     }
     // user abilities
     public static void loanABook() {
